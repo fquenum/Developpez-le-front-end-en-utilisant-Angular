@@ -1,0 +1,51 @@
+<div class="detail-container">
+  <!-- Bouton retour -->
+  <button class="back-button" (click)="goBack()">
+    ← Back
+  </button>
+
+
+
+  <!-- En-tête avec nom du pays -->
+  <header class="header">
+    <h1>{{ countryName }}</h1>
+  </header>
+
+  <!-- Section des statistiques -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <span class="stat-label">Number of entries</span>
+      <span class="stat-number">{{ numberOfEntries }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Total number medals</span>
+      <span class="stat-number">{{ totalMedals }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Total number of athletes</span>
+      <span class="stat-number">{{ totalAthletes }}</span>
+    </div>
+  </div>
+
+  <!-- Graphique en ligne -->
+  <div class="chart-container" *ngIf="lineChartData.length > 0">
+    <ngx-charts-line-chart
+      [results]="lineChartData"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [timeline]="timeline"
+      (select)="onSelect($event)">
+    </ngx-charts-line-chart>
+  </div>
+
+  <!-- Message si pas de données -->
+  <div class="no-data" *ngIf="!olympic">
+    <p>Loading country data...</p>
+  </div>
+</div>

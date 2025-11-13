@@ -1,0 +1,175 @@
+// src/app/pages/home/home.component.scss
+
+.home-container {
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #ffffff;
+    margin: 0;
+    padding: 20px 50px;
+    background-color: #17a2b8; // Couleur turquoise comme la maquette
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 60px;
+  background-color: #ffffff;
+  border: 3px solid #17a2b8; // Bordure turquoise
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+
+  .stat-label {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+  }
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+
+  // Styles pour le graphique ngx-charts
+  ::ng-deep {
+    // Labels sur le graphique
+    .pie-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .pie-label-line {
+      stroke: #999;
+    }
+
+    // Style au survol des portions
+    .arc:hover {
+      opacity: 0.9;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    // 🎨 Personnalisation du TOOLTIP (l'encadré vert)
+    /*.ngx-charts-tooltip-content {
+      background-color: #17a2b8 !important; // Couleur turquoise/vert
+      color: #ffffff !important;
+      border-radius: 8px !important;
+      padding: 12px 20px !important;
+      font-size: 16px !important;
+      font-weight: 500 !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+      border: none !important;
+      white-space: pre-line; // Pour permettre les sauts de ligne
+      text-align: center;
+    }*/
+    
+
+    // Flèche du tooltip
+    .tooltip-caret {
+      border-top-color: #17a2b8 !important;
+    }
+
+    // Légende
+    .legend-labels {
+      font-size: 14px;
+      
+      .legend-label {
+        cursor: pointer;
+        
+        &:hover {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .legend-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.no-data {
+  text-align: center;
+  padding: 60px;
+  color: #999;
+  font-size: 1.3rem;
+}
+
+// Styles pour les tooltips ngx-charts
+
+
+
+// le responsive doit etre fait dans le typescript ou dans le scss
+// le scroll horizontale est interdit dsans le responsive. Le break point est sur le width et non sur le high
+// le scoll vertical lui est permis 
+// Responsive
+@media (max-width: 768px) {
+  .home-container {
+    padding: 20px 10px;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+    padding: 15px 30px;
+  }
+
+  .chart-container {
+    padding: 20px 10px;
+  }
+
+  .stats-container {
+    gap: 30px;
+  }
+
+  .stat-card {
+    padding: 20px 40px;
+    min-width: 200px;
+
+    .stat-number {
+      font-size: 2.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+    }
+  }
+}
