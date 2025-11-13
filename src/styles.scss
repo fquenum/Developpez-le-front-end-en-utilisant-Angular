@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+/* Vous pouvez ajouter des styles globaux à ce fichier, et aussi importer d'autres fichiers de styles */
+
+
+.ngx-charts-tooltip-content {
+  background-color: #17a2b8 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  padding: 12px 20px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+  white-space: pre-line !important;
+  text-align: center !important;
+}

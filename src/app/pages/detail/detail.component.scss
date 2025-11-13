@@ -1,0 +1,214 @@
+// src/app/pages/detail/detail.component.scss
+
+.detail-container {
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  min-height: 100vh;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 2px solid #17a2b8;
+  color: #17a2b8;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+
+  &:hover {
+    background-color: #17a2b8;
+    color: #ffffff;
+    transform: translateX(-5px);
+  }
+
+  &:active {
+    transform: translateX(-3px);
+  }
+}
+
+.header {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 40px;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #ffffff;
+    margin: 0;
+    padding: 20px 50px;
+    background-color: #17a2b8;
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 50px;
+  background-color: #ffffff;
+  border: 3px solid #17a2b8;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 220px;
+
+  .stat-label {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+  }
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  margin-top: 20px;
+
+  ::ng-deep {
+    // Style des lignes du graphique
+    .line-chart {
+      .line-series {
+        .line {
+          stroke-width: 3px;
+        }
+      }
+    }
+
+    // Points sur la ligne
+    .line-series circle {
+      r: 5;
+      cursor: pointer;
+      
+      &:hover {
+        r: 7;
+        transition: r 0.2s ease;
+      }
+    }
+
+    // Axes
+    .x-axis,
+    .y-axis {
+      .tick {
+        line {
+          stroke: #e0e0e0;
+        }
+        
+        text {
+          fill: #666;
+          font-size: 14px;
+        }
+      }
+    }
+
+    // Label de l'axe X
+    .x-axis-label,
+    .y-axis-label {
+      font-size: 16px;
+      font-weight: 500;
+      fill: #333;
+    }
+
+    // Grille
+    .gridline-path {
+      stroke: #f0f0f0;
+      stroke-width: 1;
+    }
+
+    // Tooltip
+    .ngx-charts-tooltip-content {
+      background-color: #17a2b8 !important;
+      color: #ffffff !important;
+      border-radius: 8px !important;
+      padding: 10px 15px !important;
+      font-size: 14px !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+      border: none !important;
+    }
+
+    .tooltip-caret {
+      border-top-color: #17a2b8 !important;
+    }
+  }
+}
+
+.no-data {
+  text-align: center;
+  padding: 60px;
+  color: #999;
+  font-size: 1.3rem;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .detail-container {
+    padding: 20px 10px;
+  }
+
+  .back-button {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-bottom: 20px;
+  }
+
+  .header {
+    margin-top: 20px;
+    
+    h1 {
+      font-size: 1.8rem;
+      padding: 15px 30px;
+    }
+  }
+
+  .chart-container {
+    padding: 20px 10px;
+  }
+
+  .stats-container {
+    gap: 20px;
+  }
+
+  .stat-card {
+    padding: 20px 40px;
+    min-width: 180px;
+
+    .stat-number {
+      font-size: 2rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+    }
+  }
+}

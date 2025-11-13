@@ -1,3 +1,44 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<div class="home-container">
+  <!-- En-tête avec titre -->
+  <header class="header">
+    <h1>Medals per Country</h1>
+  </header>
+
+    
+
+  <!-- Section des statistiques -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <span class="stat-number">{{ numberOfJOs }}</span>
+      <span class="stat-label">Number of JOs</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">{{ numberOfCountries }}</span>
+      <span class="stat-label">Number of countries</span>
+    </div>
+  </div>
+
+
+
+
+  <!-- Graphique Pie Chart -->
+  <div class="chart-container" *ngIf="chartData.length > 0">
+    <ngx-charts-pie-chart
+      [results]="chartData"
+      [gradient]="gradient"
+      [legend]="showLegend"
+      [labels]="showLabels"
+      [tooltipDisabled]="tooltipDisabled"
+      [tooltipText]="pieTooltipText" 
+      [doughnut]="isDoughnut"
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)">
+    </ngx-charts-pie-chart>
+  </div>
+
+  <!-- Message si pas de données -->
+  <div class="no-data" *ngIf="chartData.length === 0">
+    <p>Loading Olympic data...</p>
+  </div>
+</div>
