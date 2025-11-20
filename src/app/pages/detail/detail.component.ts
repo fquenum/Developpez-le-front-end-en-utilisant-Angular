@@ -1,7 +1,7 @@
 // src/app/pages/detail/detail.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of, Subject, take, takeUntil } from 'rxjs';
+import { Observable, of, Subscription} from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
@@ -52,8 +52,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#7aa3e5']
   };
 
-  // Gestion du cycle de vie
-  private destroy$ = new Subject<void>();
+  private subscription!: Subscription;
   public olympics$: Observable<Olympic[] | null> = of(null);
 
   constructor(
@@ -70,13 +69,12 @@ export class DetailComponent implements OnInit, OnDestroy {
       return;
     }
 
+    //chargement des données
     this.olympics$ = this.olympicService.getOlympics();
-    this.olympics$.subscribe({
+    this.subscription = this.olympics$.subscribe({
       next: data => {
         if(data){
-          console.log("affichage data: ",data);
-          this.olympic = data.find(o => o.id === id);
-          
+          this.olympic = data.find(elementInData => elementInData.id === id);
           if (this.olympic) {
             this.loadCountryData(this.olympic);
           } else {
@@ -87,20 +85,7 @@ export class DetailComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Chargement des données
-    this.olympicService.getOlympics().pipe(take(1)).subscribe((data) => {
-        if (data) {
-          console.log("affichage data: ",data);
-          this.olympic = data.find(o => o.id === id);
-          
-          if (this.olympic) {
-            this.loadCountryData(this.olympic);
-          } else {
-            // Pays non trouvé, redirection vers 404
-            this.router.navigate(['/404']);
-          }
-        }
-      });
+    
   }
 
   /**
@@ -111,16 +96,10 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.numberOfEntries = olympic.participations.length;
     
     // Calcul du total de médailles
-    this.totalMedals = olympic.participations.reduce(
-      (sum, p) => sum + p.medalsCount,
-      0
-    );
+    this.totalMedals = olympic.participations.reduce((somme, p) => somme + p.medalsCount,0);
     
     // Calcul du total d'athlètes
-    this.totalAthletes = olympic.participations.reduce(
-      (sum, p) => sum + p.athleteCount,
-      0
-    );
+    this.totalAthletes = olympic.participations.reduce((somme, p) => somme + p.athleteCount,0);
 
     // Préparation des données pour le graphique en ligne
     this.prepareLineChartData(olympic);
@@ -157,7 +136,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.subscription?.unsubscribe();
+   
   }
 }

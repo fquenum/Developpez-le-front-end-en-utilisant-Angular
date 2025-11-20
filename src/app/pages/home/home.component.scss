@@ -86,21 +86,7 @@
       transition: opacity 0.2s ease;
     }
 
-    // 🎨 Personnalisation du TOOLTIP (l'encadré vert)
-    /*.ngx-charts-tooltip-content {
-      background-color: #17a2b8 !important; // Couleur turquoise/vert
-      color: #ffffff !important;
-      border-radius: 8px !important;
-      padding: 12px 20px !important;
-      font-size: 16px !important;
-      font-weight: 500 !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-      border: none !important;
-      white-space: pre-line; // Pour permettre les sauts de ligne
-      text-align: center;
-    }*/
     
-
     // Flèche du tooltip
     .tooltip-caret {
       border-top-color: #17a2b8 !important;
@@ -138,9 +124,7 @@
 
 
 
-// le responsive doit etre fait dans le typescript ou dans le scss
-// le scroll horizontale est interdit dsans le responsive. Le break point est sur le width et non sur le high
-// le scoll vertical lui est permis 
+
 // Responsive
 @media (max-width: 768px) {
   .home-container {

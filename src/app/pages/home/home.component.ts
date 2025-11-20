@@ -1,8 +1,6 @@
-import { Component, OnInit, ViewEncapsulation} from '@angular/core'; //
-import { Observable, of, Subject } from 'rxjs'; //
+import { Component, OnInit} from '@angular/core'; //
+import { Observable, of, Subscription } from 'rxjs'; //
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Router } from '@angular/router';  //
 import { Olympic } from 'src/app/core/models/Olympic'; //
 
@@ -52,12 +50,23 @@ export class HomeComponent implements OnInit {
 
 
   public olympics$: Observable<Olympic[] | null> = of(null);
+  
+  numberOfJOs: number = 0;
+  numberOfCountries: number = 0;
+
+   // Subscription
+  private subscription!: Subscription;
+
+    constructor(
+    private olympicService: OlympicService,
+    private router: Router
+  ) {}
+
 
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.olympics$.subscribe({
-      next: data => {
+    this.subscription = this.olympics$.subscribe({next: data => {
         if(data){
           this.numberOfCountries = data.length;
             this.prepareChartData(data);
@@ -66,16 +75,10 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-// Statistiques
-  numberOfJOs: number = 0;
-  numberOfCountries: number = 0;
+
   
 
 
-  constructor(
-    private olympicService: OlympicService,
-    private router: Router
-  ) {}
 
   
 
@@ -84,10 +87,7 @@ export class HomeComponent implements OnInit {
    */
  private calculateNumberOfJOs(olympics: Olympic[]): void {
     const uniqueYears = new Set<number>();
-    olympics.forEach(olympic => {
-      olympic.participations.forEach(participation => {
-        uniqueYears.add(participation.year);
-      });
+    olympics.forEach(olympic => {olympic.participations.forEach(participation => {uniqueYears.add(participation.year);});
     });
     this.numberOfJOs = uniqueYears.size;
   }
@@ -99,10 +99,7 @@ export class HomeComponent implements OnInit {
   private prepareChartData(olympics: Olympic[]): void {
     this.chartData = olympics.map(olympic => {
       // Calcul du total de médailles pour ce pays
-      const totalMedals = olympic.participations.reduce(
-        (sum, participation) => sum + participation.medalsCount,
-        0
-      );
+      const totalMedals = olympic.participations.reduce((somme, participation) => somme + participation.medalsCount,0);
 
       return {
         name: olympic.country,      // Nom affiché sur le graphique
@@ -141,6 +138,11 @@ pieTooltipText = (TooltipData: tooltipData): string => {
    */
   onDeactivate(event: chartEvent): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(event)));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+   
   }
 
 }
