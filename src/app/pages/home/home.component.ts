@@ -140,7 +140,7 @@ pieTooltipText = (TooltipData: tooltipData): string => {
     console.log('Deactivate', JSON.parse(JSON.stringify(event)));
   }
 
-  ngOnDestroy(): void { // ne pas oublier le implements OnDestroy
+  ngOnDestroy(): void { 
     this.subscription?.unsubscribe();
    
   }
