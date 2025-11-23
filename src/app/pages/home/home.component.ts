@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core'; //
+import { Component, OnDestroy, OnInit} from '@angular/core'; //
 import { Observable, of, Subscription } from 'rxjs'; //
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Router } from '@angular/router';  //
@@ -32,7 +32,7 @@ interface chartEvent {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit,OnDestroy {
    
   chartData: chartDataModel[] = []; //  Données pour le graphique
   
@@ -140,7 +140,7 @@ pieTooltipText = (TooltipData: tooltipData): string => {
     console.log('Deactivate', JSON.parse(JSON.stringify(event)));
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { // ne pas oublier le implements OnDestroy
     this.subscription?.unsubscribe();
    
   }

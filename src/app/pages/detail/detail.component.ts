@@ -65,7 +65,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     // Récupération de l'ID depuis l'URL
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (!id) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/404']);
       return;
     }
 
